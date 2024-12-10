@@ -20,18 +20,22 @@ This is a simple to-do list API built with **Nest.js**, allowing users to manage
 
 To run this project locally, follow these steps:
 
-1. Clone the repository:   
+1. Clone the repository:
+   
    git clone https://github.com/yourusername/to-do-list.git
 
-2. Navigate to the project directory:
+3. Navigate to the project directory:
+   
    cd to-do-list
 
-4. Install the dependencies:
+5. Install the dependencies:
+   
    npm install
 
-5. If you’re using PostgreSQL, make sure to set up your database and configure the connection in src/config/database.config.ts (or wherever you have configured your DB settings).
+7. If you’re using PostgreSQL, make sure to set up your database and configure the connection in src/config/database.config.ts (or wherever you have configured your DB settings).
    
-7. Start the server.
+8. Start the server.
+   
    npm run start
 
 The API will be available at http://localhost:3000.
