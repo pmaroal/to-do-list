@@ -26,12 +26,12 @@ To run this project locally, follow these steps:
 2. Navigate to the project directory:
    cd to-do-list
 
-3. Install the dependencies:
+4. Install the dependencies:
    npm install
 
 5. If you’re using PostgreSQL, make sure to set up your database and configure the connection in src/config/database.config.ts (or wherever you have configured your DB settings).
    
-7.  Start the server.
+7. Start the server.
    npm run start
 
 The API will be available at http://localhost:3000.
