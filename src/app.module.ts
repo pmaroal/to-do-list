@@ -2,9 +2,22 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NotesModule } from './notes/notes.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [NotesModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'user',
+      password: 'password',
+      database: 'notesdb',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    NotesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
