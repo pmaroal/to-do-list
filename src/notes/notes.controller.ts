@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
@@ -8,6 +18,7 @@ export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createNoteDto: CreateNoteDto) {
     return this.notesService.create(createNoteDto);
   }
@@ -18,17 +29,18 @@ export class NotesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.notesService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
-    return this.notesService.update(+id, updateNoteDto);
+  update(@Param('id') id: number, @Body() updateNoteDto: UpdateNoteDto) {
+    return this.notesService.update(id, updateNoteDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.notesService.remove(+id);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@Param('id') id: number) {
+    return this.notesService.remove(id);
   }
 }

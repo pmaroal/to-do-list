@@ -7,6 +7,9 @@ import { Not, Repository } from 'typeorm';
 
 @Injectable()
 export class NotesService {
+  remove(id: number) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(Note)
     private readonly noteRepository: Repository<Note>,
