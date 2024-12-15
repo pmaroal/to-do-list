@@ -12,7 +12,7 @@ export class NotesService {
   }
   constructor(
     @InjectRepository(Note)
-    private readonly noteRepository: Repository<Note>,
+    private readonly noteRepository: Repository<Note>, //Inject the Note entity
   ) {}
 
   //Create a new note

@@ -20,7 +20,10 @@ export class NotesController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createNoteDto: CreateNoteDto) {
-    return this.notesService.create(createNoteDto);
+    return {
+      message: 'Note created successfully!',
+      data: createNoteDto,
+    };
   }
 
   @Get()
