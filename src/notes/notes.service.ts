@@ -17,6 +17,8 @@ export class NotesService {
 
   //Create a new note
   async create(createNoteDto: CreateNoteDto): Promise<Note> {
+    console.log('Incoming data:', createNoteDto); // Verifica los datos recibidos
+
     const newNote = this.noteRepository.create(createNoteDto);
     return await this.noteRepository.save(newNote);
   }
