@@ -36,10 +36,16 @@ export class NotesController {
   findOne(@Param('id') id: number) {
     return this.notesService.findOne(+id);
   }
-
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateNoteDto: UpdateNoteDto) {
-    return this.notesService.update(id, updateNoteDto);
+  async update(
+    @Param('id') id: number, // ID note to updaate
+    @Body() updateNoteDto: UpdateNoteDto, // Data to update
+  ) {
+    const updatedNote = await this.notesService.update(id, updateNoteDto);
+    return {
+      message: 'Note updated successfully!',
+      data: updatedNote,
+    };
   }
 
   @Delete(':id')

@@ -40,10 +40,16 @@ export class NotesService {
   }
   //Update a note by id
   async update(id: number, updateNoteDto: UpdateNoteDto): Promise<Note> {
-    const note = await this.findOne(id);
+    const note = await this.findOne(id); // Busca la nota
+    if (!note) {
+      throw new NotFoundException(`Note with ID ${id} not found`);
+    }
+
+    // Update the note
     Object.assign(note, updateNoteDto);
-    note.updatedAt = new Date();
-    return await this.noteRepository.save(note);
+    note.updatedAt = new Date(); // Update date
+
+    return await this.noteRepository.save(note); // Save the note
   }
   //Delete a note by id
   async delete(id: number): Promise<void> {
