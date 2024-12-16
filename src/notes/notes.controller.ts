@@ -19,10 +19,11 @@ export class NotesController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createNoteDto: CreateNoteDto) {
+  async create(@Body() createNoteDto: CreateNoteDto) {
+    const createdNote = await this.notesService.create(createNoteDto);
     return {
       message: 'Note created successfully!',
-      data: createNoteDto,
+      data: createdNote,
     };
   }
 
