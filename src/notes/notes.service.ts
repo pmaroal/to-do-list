@@ -7,9 +7,6 @@ import { Not, Repository } from 'typeorm';
 
 @Injectable()
 export class NotesService {
-  remove(id: number) {
-    throw new Error('Method not implemented.');
-  }
   constructor(
     @InjectRepository(Note)
     private readonly noteRepository: Repository<Note>, //Inject the Note entity
@@ -52,10 +49,8 @@ export class NotesService {
     return await this.noteRepository.save(note); // Save the note
   }
   //Delete a note by id
-  async delete(id: number): Promise<void> {
-    const result = await this.noteRepository.delete(id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Note with ID ${id} not found`);
-    }
+  async remove(id: number): Promise<void> {
+    const note = await this.findOne(id); // Carga la entidad por ID
+    await this.noteRepository.remove(note); // Elimina la entidad
   }
 }
