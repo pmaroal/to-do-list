@@ -36,6 +36,12 @@ export class NotesController {
   findOne(@Param('id') id: number) {
     return this.notesService.findOne(+id);
   }
+
+  @Get('title/:title')
+  async findByTitle(@Param('title') title: string) {
+    return this.notesService.findByTitle(title);
+  }
+
   @Patch(':id')
   async update(
     @Param('id') id: number, // ID note to updaate

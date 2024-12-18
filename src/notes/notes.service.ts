@@ -35,6 +35,20 @@ export class NotesService {
     }
     return note;
   }
+
+  //Get a single note by title
+  async findByTitle(title: string): Promise<Note[]> {
+    const notes = await this.noteRepository.find({
+      where: { title },
+    });
+
+    if (notes.length === 0) {
+      throw new NotFoundException(`No notes found with title "${title}"`);
+    }
+
+    return notes;
+  }
+
   //Update a note by id
   async update(id: number, updateNoteDto: UpdateNoteDto): Promise<Note> {
     const note = await this.findOne(id); // Busca la nota
