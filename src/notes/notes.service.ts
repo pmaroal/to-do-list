@@ -3,7 +3,7 @@ import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Note } from './entities/note.entity';
-import { Not, Repository } from 'typeorm';
+import { ILike, Like, Not, Repository } from 'typeorm';
 
 @Injectable()
 export class NotesService {
@@ -49,6 +49,20 @@ export class NotesService {
     return notes;
   }
 
+  //Get a notes by word in title
+  async findByTitleContains(term: string): Promise<Note[]> {
+    const notes = await this.noteRepository.find({
+      where: {
+        title: ILike(`%${term}%`), // Busca títulos que contengan el término (ignora mayúsculas/minúsculas)
+      },
+    });
+
+    if (notes.length === 0) {
+      throw new NotFoundException(`No notes found with title "${term}"`);
+    }
+
+    return notes;
+  }
   //Update a note by id
   async update(id: number, updateNoteDto: UpdateNoteDto): Promise<Note> {
     const note = await this.findOne(id); // Busca la nota
@@ -62,6 +76,7 @@ export class NotesService {
 
     return await this.noteRepository.save(note); // Save the note
   }
+
   //Delete a note by id
   async remove(id: number): Promise<void> {
     const note = await this.findOne(id); // Carga la entidad por ID

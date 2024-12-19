@@ -8,6 +8,8 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  BadRequestException,
+  Query,
 } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
@@ -40,6 +42,14 @@ export class NotesController {
   @Get('title/:title')
   async findByTitle(@Param('title') title: string) {
     return this.notesService.findByTitle(title);
+  }
+
+  @Get('search')
+  async searchByTitle(@Query('term') term: string) {
+    if (!term) {
+      throw new BadRequestException('Search term is required');
+    }
+    return await this.notesService.findByTitleContains(term);
   }
 
   @Patch(':id')
