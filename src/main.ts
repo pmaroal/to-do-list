@@ -6,8 +6,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
     origin: 'http://localhost:3000', // Solo permitir solicitudes desde localhost:3000
-    methods: 'GET, POST, PUT, DELETE', // Métodos permitidos
-    allowedHeaders: 'Content-Type', // Encabezados permitidos
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados
   });
   //Habilt global validation
   app.useGlobalPipes(
@@ -18,6 +18,6 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(3001);
 }
 bootstrap();
